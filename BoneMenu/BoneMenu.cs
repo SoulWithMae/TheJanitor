@@ -61,6 +61,7 @@ internal static class BoneMenu
         var poolees = Object.FindObjectsOfType<AssetPoolee>();
         foreach (var poolee in poolees)
         {
+            if (poolee.spawnableCrate.Barcode == "SLZ.BONELAB.Core.DefaultPlayerRig") return;
             poolee.Despawn();
         }
         Notifier.Send(EverythingCleared);
