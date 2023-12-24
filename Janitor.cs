@@ -72,7 +72,7 @@ internal static class Janitor
 
     public static void Clear()
     {
-        if (_clearType != ClearType.Decals && Main.FusionInstalled && !Preferences.OverrideFusionCheck.Value && LabFusion.Network.NetworkInfo.IsClient || LabFusion.Network.NetworkInfo.IsServer)
+        if (Main.FusionInstalled && !Preferences.OverrideFusionCheck.Value && (LabFusion.Network.NetworkInfo.IsClient || LabFusion.Network.NetworkInfo.IsServer) && _clearType != ClearType.Decals)
         {
             Notifier.Send(InFusionServer);
             return;

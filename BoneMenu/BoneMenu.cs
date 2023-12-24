@@ -8,5 +8,6 @@ internal static class BoneMenu
         MenuCategory subCat = mainCat.CreateCategory("The Janitor", Color.blue);
         subCat.CreateEnumElement("Clear Type", Color.white, Janitor.ClearType.Everything, Janitor.UpdateType);
         subCat.CreateFunctionElement("Clear", Color.white, Janitor.Clear);
+        subCat.CreateBoolPreference("Override Fusion Check", Color.red, Preferences.OverrideFusionCheck, Preferences.OwnCategory);
     }
 }
