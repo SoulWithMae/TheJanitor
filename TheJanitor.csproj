@@ -43,6 +43,9 @@
         <Reference Include="Il2Cppmscorlib">
             <HintPath>References\Il2Cppmscorlib.dll</HintPath>
         </Reference>
+        <Reference Include="LabFusion">
+          <HintPath>References\LabFusion.dll</HintPath>
+        </Reference>
         <Reference Include="MelonLoader">
             <HintPath>References\MelonLoader.dll</HintPath>
         </Reference>
@@ -67,6 +70,7 @@
         <Compile Include="Melon\ModConsole.cs"/>
         <Compile Include="Melon\Preferences.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
+        <Compile Include="Janitor.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <PropertyGroup>
