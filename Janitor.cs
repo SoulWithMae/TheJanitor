@@ -1,4 +1,8 @@
-﻿namespace TheJanitor;
+﻿using System.Collections.Generic;
+using System.Linq;
+using SLZ.Marrow.Warehouse;
+
+namespace TheJanitor;
 
 internal static class Janitor
 {
@@ -100,6 +104,26 @@ internal static class Janitor
             default:
                 ModConsole.Error("Invalid clear type!");
                 break;
+        }
+    }
+    
+    private static List<SpawnableCratePlacer> _spawnableCratePlacers = new();
+    
+    public static void OnLevelUnload()
+    {
+        _spawnableCratePlacers.Clear();
+    }
+
+    public static void Reset()
+    {
+        ClearEverything();
+        if (_spawnableCratePlacers.Count == 0)
+        {
+            _spawnableCratePlacers = Object.FindObjectsOfType<SpawnableCratePlacer>().ToList();
+        }
+        foreach (var placer in _spawnableCratePlacers)
+        {
+            placer.RePlaceSpawnable();
         }
     }
     
