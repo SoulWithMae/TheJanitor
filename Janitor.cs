@@ -64,6 +64,14 @@ internal static class Janitor
         PopupLength = 1f,
         ShowTitleOnPopup = true
     };
+    private static Notification ResetMap { get; } = new()
+    {
+        Title = "The Janitor",
+        Message = "Reset the map!",
+        Type = NotificationType.Success,
+        PopupLength = 1f,
+        ShowTitleOnPopup = true
+    };
     
     #endregion
 
@@ -116,7 +124,12 @@ internal static class Janitor
 
     public static void Reset()
     {
-        ClearEverything();
+        if (Main.FusionInstalled && !Preferences.OverrideFusionCheck.Value && (LabFusion.Network.NetworkInfo.IsClient || LabFusion.Network.NetworkInfo.IsServer) && _clearType != ClearType.Decals)
+        {
+            Notifier.Send(InFusionServer);
+            return;
+        }
+        ClearEverything(true);
         if (_spawnableCratePlacers.Count == 0)
         {
             _spawnableCratePlacers = Object.FindObjectsOfType<SpawnableCratePlacer>().ToList();
@@ -125,11 +138,12 @@ internal static class Janitor
         {
             placer.RePlaceSpawnable();
         }
+        Notifier.Send(ResetMap);
     }
     
     #region Clearing
     
-    private static void ClearEverything()
+    private static void ClearEverything(bool nonotif = false)
     {
         var poolees = Object.FindObjectsOfType<AssetPoolee>();
         foreach (var poolee in poolees)
@@ -137,7 +151,7 @@ internal static class Janitor
             if (poolee.spawnableCrate.Barcode == "SLZ.BONELAB.Core.DefaultPlayerRig") return;
             poolee.Despawn();
         }
-        Notifier.Send(EverythingCleared);
+        if (!nonotif) Notifier.Send(EverythingCleared);
     }
     
     private static void ClearNPCs()
